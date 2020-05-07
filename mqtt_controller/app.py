@@ -1,4 +1,5 @@
 from flask import Flask, jsonify, request
+from flask_cors import CORS
 
 from settings import MQTT_HOST
 from client import MQQTClient
@@ -15,7 +16,7 @@ mqtt_client = MQQTClient(MQTT_HOST, topics, on_message_callback)
 mqtt_client.start()
 
 app = Flask(__name__)
-
+CORS(app)
 
 @app.route("/topics/list")
 def topics():

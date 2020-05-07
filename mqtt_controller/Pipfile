@@ -10,6 +10,7 @@ paho-mqtt = "*"
 flask = "*"
 peewee = "*"
 pymysql = "*"
+flask-cors = "*"
 
 [requires]
 python_version = "3.7"
