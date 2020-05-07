@@ -1,5 +1,5 @@
 import paho.mqtt.client as mqtt
-
+from settings import MQTT_USER, MQTT_PASSWORD
 
 class MQQTClient:
     def __init__(self, host, topics, on_message_callback):
@@ -58,7 +58,7 @@ class MQQTClient:
         self.client = mqtt.Client()
         self.client.on_connect = self.on_connect
         self.client.on_message = self.on_message
-
+        self.client.username_pw_set(username=MQTT_USER, password=MQTT_PASSWORD)
         self.client.connect(self.host, 1883, 60)
 
         self.client.loop_start()
