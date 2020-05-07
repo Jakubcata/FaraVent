@@ -7,8 +7,9 @@ verify_ssl = true
 
 [packages]
 paho-mqtt = "*"
-mysql-client = "*"
-mysql-connector = "*"
+flask = "*"
+peewee = "*"
+pymysql = "*"
 
 [requires]
 python_version = "3.7"
