@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/',
+  ['as' => 'index', 'uses' => 'AdminController@index']);
+
+Route::get('/deleteTopic',
+  ['as' => 'deleteTopic','uses' => 'AdminController@deleteTopic']);
+
+  Route::get('/addTopic',
+    ['as' => 'addTopic','uses' => 'AdminController@addTopic']);
