@@ -35,6 +35,14 @@
 
 
           <div class="col-md-6">
+            <h5>Pošli správu</h5>
+            <form action="{{route('publish')}}">
+              <div  class="input-group">
+                <input type="text" name="topic" placeholder="topic" class="form-control">
+                <input type="text" name="message" placeholder="message" class="form-control">
+                <input type="submit" value="Send">
+              </div>
+            </form><br/>
                       <div class="float-left"><h5>Posledných 30 správ</h5></div>
 
                       <div class="float-right"><a class="btn btn-info" href="{{route('index')}}">Refresh</a></div>
@@ -53,14 +61,7 @@
             @endforeach
           </tbody>
           </table>
-          <h5>Pošli správu</h5>
-          <form action="{{route('publish')}}">
-            <div  class="input-group">
-              <input type="text" name="topic" placeholder="topic" class="form-control">
-              <input type="text" name="message" placeholder="message" class="form-control">
-              <input type="submit" value="Send">
-            </div>
-          </form>
+
           </div>
         </div>
     </div>

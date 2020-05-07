@@ -35,7 +35,7 @@ class AdminController extends Controller
   }
 
   function last_messages(){
-    return array_reverse(DB::select("SELECT type, topic, message, created from message order by id desc limit 30"));
+    return DB::select("SELECT type, topic, message, created from message order by id desc limit 30");
   }
 
 
