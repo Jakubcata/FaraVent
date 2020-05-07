@@ -21,3 +21,6 @@ Route::get('/deleteTopic',
 
   Route::get('/addTopic',
     ['as' => 'addTopic','uses' => 'AdminController@addTopic']);
+
+    Route::get('/publish',
+      ['as' => 'publish','uses' => 'AdminController@publish']);

@@ -28,6 +28,12 @@ class AdminController extends Controller
     return $this->index($request);
   }
 
+  public function publish(Request $request){
+    file_get_contents($this->API_URL."/publish/?topic=".urlencode($request->topic)."&message=".urlencode($request->message));
+
+    return $this->index($request);
+  }
+
   function last_messages(){
     return array_reverse(DB::select("SELECT type, topic, message, created from message order by id desc limit 30"));
   }

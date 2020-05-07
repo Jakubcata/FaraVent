@@ -16,13 +16,9 @@
     <div class="container main">
         <div class="row">
           <div class="col-md-3">
+            <h5>Sledované topics</h5>
+
             <table class="table">
-              <thead>
-                <tr>
-  <th scope="col">Topic</th>
-  <th scope="col"></th>
-</tr>
-              </thead>
               <tbody>
               @foreach($topics as $topic)
                 <tr><th scope="row">{{ $topic }}</th><td><a href={{route('deleteTopic', ['topic' => $topic])}} onclick="return confirm('Naozaj chceš zmazať {{$topic}} ?')">Delete</a></td></tr>
@@ -31,12 +27,18 @@
             </table>
             <form action="{{route('addTopic')}}">
               <div  class="input-group">
-  <input type="text" id="fname" name="topic" class="form-control">
-  <input type="submit" value="Add">
-</div>
-</form>
+                <input type="text" id="fname" name="topic" placeholder="Nový topic" class="form-control">
+                <input type="submit" value="Add">
+              </div>
+            </form>
           </div>
-          <div class="col-md-6">            <table class="table">
+
+
+          <div class="col-md-6">
+                      <div class="float-left"><h5>Posledných 30 správ</h5></div>
+
+                      <div class="float-right"><a class="btn btn-info" href="{{route('index')}}">Refresh</a></div>
+                      <table class="table">
                         <thead>
                           <tr>
                             <th scope="col">Type</th>
@@ -51,7 +53,14 @@
             @endforeach
           </tbody>
           </table>
-          <a class="btn btn-info" href="{{route('index')}}">Refresh</a>
+          <h5>Pošli správu</h5>
+          <form action="{{route('publish')}}">
+            <div  class="input-group">
+              <input type="text" name="topic" placeholder="topic" class="form-control">
+              <input type="text" name="message" placeholder="message" class="form-control">
+              <input type="submit" value="Send">
+            </div>
+          </form>
           </div>
         </div>
     </div>
