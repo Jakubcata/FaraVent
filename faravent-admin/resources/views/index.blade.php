@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=0.9, user-scalable=no">
     <title>FaraVent Admin</title>
-    <base href="http://admin.faravent.jakubcata.eu/">
+    <base href="{{url('/')}}">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.2/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Open+Sans:400,300,300italic,400italic,600,600italic,700,700italic' rel='stylesheet' type='text/css'>
@@ -21,7 +21,7 @@
             <table class="table">
               <tbody>
               @foreach($topics as $topic)
-                <tr><th scope="row">{{ $topic }}</th><td><a href={{route('deleteTopic', ['topic' => $topic])}} onclick="return confirm('Naozaj chceš zmazať {{$topic}} ?')">Delete</a></td></tr>
+                <tr><th scope="row">{{ $topic }}</th><td><a href="{{route('deleteTopic', ['topic' => $topic])}}" onclick="return confirm('Naozaj chceš zmazať {{$topic}} ?')">Delete</a></td></tr>
               @endforeach
             </tbody>
             </table>
@@ -31,6 +31,23 @@
                 <input type="submit" value="Add">
               </div>
             </form>
+            <br>
+
+            <table class="table">
+              <tbody>
+              @foreach($binaries as $binary)
+                <tr><th scope="row">{{ $binary->name }}</th><td><a href="/binaries/{{$binary->real_name}}">Download</a></td></tr>
+              @endforeach
+            </tbody>
+            </table>
+
+            <form action="{{route('uploadBinary')}}" method="post" enctype="multipart/form-data">
+              @csrf
+              Select binary to upload:
+              <input type="file" name="binary">
+              <input type="submit" value="Upload Binary" name="submit">
+            </form>
+
           </div>
 
 

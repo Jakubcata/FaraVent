@@ -24,3 +24,5 @@ Route::get('/deleteTopic',
 
     Route::get('/publish',
       ['as' => 'publish','uses' => 'AdminController@publish']);
+      Route::post('/uploadBinary',
+        ['as' => 'uploadBinary','uses' => 'AdminController@upload_binary']);

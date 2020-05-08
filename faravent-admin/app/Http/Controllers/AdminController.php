@@ -2,6 +2,8 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use App\EspBinary;
+use Illuminate\Support\Str;
 
 
 class AdminController extends Controller
@@ -13,7 +15,9 @@ class AdminController extends Controller
     $data = file_get_contents($this->API_URL."/topics/list");
     $topics = json_decode($data);
 
-    return view("index",["status"=>"done", "topics"=>$topics->topics, "messages"=>$this->last_messages()]);
+    $binaries = EspBinary::all();
+
+    return view("index",["status"=>"done", "topics"=>$topics->topics, "messages"=>$this->last_messages(),"binaries"=>$binaries]);
   }
 
   public function deleteTopic(Request $request){
@@ -37,6 +41,28 @@ class AdminController extends Controller
   function last_messages(){
     return DB::select("SELECT type, topic, message, created from message order by id desc limit 30");
   }
+
+  function upload_binary(Request $request){
+    $file = $request->file('binary');
+
+    $filename = $file->getClientOriginalName();
+    $extension = $file->getClientOriginalExtension();
+    $tempPath = $file->getRealPath();
+    $fileSize = $file->getSize();
+    $mimeType = $file->getMimeType();
+
+    $location = public_path().'/binaries/';
+    $realName = Str::random(5)."_".$filename;
+
+    // Upload file
+    $file->move($location,$realName);
+
+    $binary = EspBinary::create(["name"=>$filename,"real_name"=>$realName ,"size"=>$fileSize, "description"=>""]);
+
+    return $this->index($request);
+  }
+
+
 
 
 }
