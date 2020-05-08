@@ -35,11 +35,11 @@
             <h5>Zariadenia</h5>
             <table class="table">
             <thead>
-                <tr><th>Nazov zariadenia</th><th>Topic na ktorom zariadenie prijima spravy</th><th>Topic do ktoreho zariadenie posiela spravy</th></tr>
+                <tr><th>Nazov zariadenia</th><th>Topicy na ktorom zariadenie prijima spravy</th><th>Topic do ktoreho zariadenie posiela spravy</th></tr>
             </thead>
             <tbody>
               @foreach($devices as $device)
-                <tr><th scope="row">{{ $device->name }}</th><td>{{$device->in_topic}}</td><td>{{$device->out_topic}}</td><td><a href="{{route('removeDevice',['id'=>$device->id])}}">Remove</a></td></tr>
+                <tr><th scope="row">{{ $device->name }}</th><td><ul><li>{{$device->in_topic}}</li><li> {{$device->name}}_update (firmware update)</li></ul></td><td>{{$device->out_topic}}</td><td><a href="{{route('removeDevice',['id'=>$device->id])}}">Remove</a></td></tr>
               @endforeach
             </tbody>
             </table>
