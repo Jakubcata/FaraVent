@@ -9,4 +9,8 @@ class Device extends Model
   protected $fillable = [
       'name', 'description', 'active','in_topic', 'out_topic',
   ];
+
+  public function updateTopic(){
+    return $this->name."_update";
+  }
 }

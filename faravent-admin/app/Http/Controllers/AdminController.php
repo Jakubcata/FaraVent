@@ -101,7 +101,7 @@ class AdminController extends Controller
 
     $devices = Device::where("active",True)->get();
     foreach ($devices as $device) {
-      MQTTClient::publish($device->in_topic, $this->removeProtocols($binary->getUrl()));
+      MQTTClient::publish($device->updateTopic(), $this->removeProtocols($binary->getUrl()));
     }
 
     if($request->wantsJson()){
