@@ -14,26 +14,31 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/',
-  ['as' => 'index', 'uses' => 'AdminController@index']);
+['as' => 'index', 'uses' => 'AdminController@index']);
 
 Route::get('/deleteTopic',
-  ['as' => 'deleteTopic','uses' => 'AdminController@deleteTopic']);
+['as' => 'deleteTopic','uses' => 'AdminController@deleteTopic']);
 
-  Route::get('/addTopic',
-    ['as' => 'addTopic','uses' => 'AdminController@addTopic']);
+Route::get('/addTopic',
+['as' => 'addTopic','uses' => 'AdminController@addTopic']);
 
-    Route::get('/publish',
-      ['as' => 'publish','uses' => 'AdminController@publish']);
-      Route::post('/uploadBinary',
-        ['as' => 'uploadBinary','uses' => 'AdminController@uploadBinary']);
+Route::get('/publish',
+['as' => 'publish','uses' => 'AdminController@publish']);
 
-        Route::post('/api/uploadBinary',
-          ['uses' => 'AdminController@uploadBinary']);
+Route::post('/uploadBinary',
+['as' => 'uploadBinary','uses' => 'AdminController@uploadBinary']);
 
-          Route::get('/deployBinary',
-            ['as' => 'deployBinary','uses' => 'AdminController@deployBinary']);
-        Route::get('/addDevice',
-          ['as' => 'addDevice','uses' => 'AdminController@addDevice']);
+Route::post('/api/uploadBinary',
+['uses' => 'AdminController@uploadBinary']);
 
-          Route::get('/removeDevice',
-            ['as' => 'removeDevice','uses' => 'AdminController@removeDevice']);
+Route::get('/deployBinary',
+['as' => 'deployBinary','uses' => 'AdminController@deployBinary']);
+
+Route::get('/deleteBinary',
+['as' => 'deleteBinary','uses' => 'AdminController@deleteBinary']);
+
+Route::get('/addDevice',
+['as' => 'addDevice','uses' => 'AdminController@addDevice']);
+
+Route::get('/removeDevice',
+['as' => 'removeDevice','uses' => 'AdminController@removeDevice']);

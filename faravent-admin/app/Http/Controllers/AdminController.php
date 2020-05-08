@@ -123,6 +123,13 @@ class AdminController extends Controller
     return $this->index($request);
   }
 
+  public function deleteBinary(Request $request){
+    $binary = EspBinary::find($request->id);
+    $binary->delete();
+
+    return $this->index($request);
+  }
+
 
 
 

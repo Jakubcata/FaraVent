@@ -54,7 +54,11 @@
             <table class="table">
               <tbody>
               @foreach($binaries as $binary)
-                <tr><th scope="row">{{ $binary->name }}</th><td>{{$binary->created_at}}</td><td><a href="{{route('deployBinary',['id'=>$binary->id])}}">Deploy</a></td></tr>
+                <tr><th scope="row">{{ $binary->name }}</th>
+                  <td>{{$binary->created_at}}</td>
+                  <td><a href="{{route('deployBinary',['id'=>$binary->id])}}" onclick="return confirm('Naozaj chceš deploynuť {{$binary->name}} ?')">Deploy</a></td>
+                  <td><a href="{{route('deleteBinary',['id'=>$binary->id])}}" onclick="return confirm('Naozaj chceš zmazať {{$binary->name}} ?')">Delete</a></td>
+                </tr>
               @endforeach
             </tbody>
             </table>
