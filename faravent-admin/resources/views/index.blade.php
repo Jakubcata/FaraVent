@@ -15,7 +15,7 @@
 
     <div class="container main">
         <div class="row">
-          <div class="col-md-3">
+          <div class="col-md-6">
             <h5>Sledované topics</h5>
 
             <table class="table">
@@ -27,16 +27,31 @@
             </table>
             <form action="{{route('addTopic')}}">
               <div  class="input-group">
-                <input type="text" id="fname" name="topic" placeholder="Nový topic" class="form-control">
+                <input type="text" name="topic" placeholder="Nový topic" class="form-control">
                 <input type="submit" value="Add">
               </div>
             </form>
-            <br>
-
+            <br/>
+            <h5>Zariadenia</h5>
+            <table class="table">
+              <tbody>
+              @foreach($devices as $device)
+                <tr><th scope="row">{{ $device->name }}</th><td>{{$device->in_topic}}</td><td>{{$device->out_topic}}</td><td><a href="{{route('removeDevice',['id'=>$device->id])}}">Remove</a></td></tr>
+              @endforeach
+            </tbody>
+            </table>
+            <form action="{{route('addDevice')}}">
+              <div  class="input-group">
+                <input type="text" name="name" placeholder="Názov zariadenia bez medzier" class="form-control">
+                <input type="submit" value="Add">
+              </div>
+            </form>
+            <br/>
+            <h5>Binárky</h5>
             <table class="table">
               <tbody>
               @foreach($binaries as $binary)
-                <tr><th scope="row">{{ $binary->name }}</th><td><a href="/binaries/{{$binary->real_name}}">Download</a></td></tr>
+                <tr><th scope="row">{{ $binary->name }}</th><td><a href="{{$binary->getUrl()}}">Download</a></td></tr>
               @endforeach
             </tbody>
             </table>

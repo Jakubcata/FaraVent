@@ -10,4 +10,8 @@ class EspBinary extends Model
       'name','real_name', 'size', 'description',
   ];
 
+  public function getUrl(){
+    return url('/')."/binaries/".$this->real_name;
+  }
+
 }

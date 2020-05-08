@@ -26,3 +26,12 @@ Route::get('/deleteTopic',
       ['as' => 'publish','uses' => 'AdminController@publish']);
       Route::post('/uploadBinary',
         ['as' => 'uploadBinary','uses' => 'AdminController@upload_binary']);
+
+        Route::post('/api/uploadBinary',
+          ['uses' => 'AdminController@upload_binary']);
+
+        Route::get('/addDevice',
+          ['as' => 'addDevice','uses' => 'AdminController@addDevice']);
+
+          Route::get('/removeDevice',
+            ['as' => 'removeDevice','uses' => 'AdminController@removeDevice']);
