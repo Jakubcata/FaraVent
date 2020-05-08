@@ -27,13 +27,13 @@ class BaseModel(Model):
 class Message(BaseModel):
     id = PrimaryKeyField()
     type = CharField(max_length=20)
-    topic = CharField(max_length=20)
-    message = CharField(max_length=200)
+    topic = CharField(max_length=100)
+    message = CharField(max_length=2000)
 
 
 class Topic(BaseModel):
     id = PrimaryKeyField()
-    name = CharField(max_length=20, unique=True)
+    name = CharField(max_length=100, unique=True)
 
 
 db.create_tables([Message, Topic], safe=True)
