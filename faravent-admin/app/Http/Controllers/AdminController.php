@@ -129,8 +129,4 @@ class AdminController extends Controller
 
     return $this->index($request);
   }
-
-
-
-
 }
