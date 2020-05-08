@@ -34,7 +34,10 @@
             <br/>
             <h5>Zariadenia</h5>
             <table class="table">
-              <tbody>
+            <thead>
+                <tr><th>Nazov zariadenia</th><th>Topic na ktorom zariadenie prijima spravy</th><th>Topic do ktoreho zariadenie posiela spravy</th></tr>
+            </thead>
+            <tbody>
               @foreach($devices as $device)
                 <tr><th scope="row">{{ $device->name }}</th><td>{{$device->in_topic}}</td><td>{{$device->out_topic}}</td><td><a href="{{route('removeDevice',['id'=>$device->id])}}">Remove</a></td></tr>
               @endforeach

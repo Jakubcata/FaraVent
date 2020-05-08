@@ -14,7 +14,7 @@ class MQTTClient{
   }
 
   public static function unsubscribe($topic){
-    file_get_contents(self::$API_URL."/topics/subscribe?topic=".$topic);
+    file_get_contents(self::$API_URL."/topics/unsubscribe?topic=".$topic);
   }
 
   public static function publish($topic, $message){
@@ -101,7 +101,7 @@ class AdminController extends Controller
 
     $devices = Device::where("active",True)->get();
     foreach ($devices as $device) {
-      MQTTClient::publish($device->in_topic, $this->removeProtocols()$binary->getUrl()));
+      MQTTClient::publish($device->in_topic, $this->removeProtocols($binary->getUrl()));
     }
 
     if($request->wantsJson()){
