@@ -85,7 +85,20 @@ class AdminController extends Controller
     return DB::select("SELECT type, topic, message, created from message order by id desc limit 30");
   }
 
-  function upload_binary(Request $request){
+  public function publishBinaryDeploy($binary){
+    $devices = Device::where("active",True)->get();
+    foreach ($devices as $device) {
+      MQTTClient::publish($device->updateTopic(), $this->removeProtocols($binary->getUrl()));
+    }
+  }
+
+  public function deployBinary(Request $request){
+    $binary = EspBinary::find($request->id);
+    $this->publishBinaryDeploy($binary);
+    return $this->index($request);
+  }
+
+  public function uploadBinary(Request $request){
     $file = $request->file('binary');
 
     $filename = $file->getClientOriginalName();
@@ -98,11 +111,7 @@ class AdminController extends Controller
     $file->move($location,$realName);
 
     $binary = EspBinary::create(["name"=>$filename,"real_name"=>$realName ,"size"=>$fileSize, "description"=>""]);
-
-    $devices = Device::where("active",True)->get();
-    foreach ($devices as $device) {
-      MQTTClient::publish($device->updateTopic(), $this->removeProtocols($binary->getUrl()));
-    }
+    $this->publishBinaryDeploy($binary);
 
     if($request->wantsJson()){
       return response()->json([

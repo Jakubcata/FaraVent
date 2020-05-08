@@ -54,7 +54,7 @@
             <table class="table">
               <tbody>
               @foreach($binaries as $binary)
-                <tr><th scope="row">{{ $binary->name }}</th><td><a href="{{$binary->getUrl()}}">Download</a></td></tr>
+                <tr><th scope="row">{{ $binary->name }}</th><td>{{$binary->created_at}}</td><td><a href="{{route('deployBinary',['id'=>$binary->id])}}">Deploy</a></td></tr>
               @endforeach
             </tbody>
             </table>
