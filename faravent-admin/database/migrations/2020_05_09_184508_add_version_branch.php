@@ -14,8 +14,8 @@ class AddVersionBranch extends Migration
     public function up()
     {
         Schema::table('esp_binaries', function (Blueprint $table) {
-            $table->string('version');
-            $table->string('branch');
+            $table->string('version')->nullable();
+            $table->string('branch')->nullable();
         });
     }
 
