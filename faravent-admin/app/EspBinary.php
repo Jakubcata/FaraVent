@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 class EspBinary extends Model
 {
   protected $fillable = [
-      'name','real_name', 'size', 'description',
+      'name','real_name', 'size', 'description','version','branch'
   ];
 
   public function getUrl(){

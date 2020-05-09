@@ -65,7 +65,11 @@
 
             <form action="{{route('uploadBinary')}}" method="post" enctype="multipart/form-data">
               @csrf
-              Select binary to upload:
+              <div  class="input-group">
+
+              <input type="text" name="version" placeholder="version" class="form-control">
+              <input type="text" name="branch" placeholder="branch" class="form-control">
+              </div>
               <input type="file" name="binary">
               <input type="submit" value="Upload Binary" name="submit">
             </form>
