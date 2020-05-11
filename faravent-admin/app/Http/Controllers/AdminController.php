@@ -5,6 +5,8 @@ use Illuminate\Support\Facades\DB;
 use App\EspBinary;
 use App\Device;
 use Illuminate\Support\Str;
+use Helper;
+
 
 class MQTTClient{
   private static $API_URL = "http://mqtt.faravent.jakubcata.eu";
@@ -33,29 +35,37 @@ class AdminController extends Controller
 {
 
   public function index(Request $request){
+    $mqtt_received_counts = Helper::messagesCounts("message","created", 10, "d", "and type='received'");
+    $mqtt_sent_counts = Helper::messagesCounts("message","created", 10, "d", "and type='sent'");
     $topics = MQTTClient::topics();
 
     $binaries = EspBinary::all();
     $devices = Device::all();
 
-    return view("index",["status"=>"done", "topics"=>$topics->topics, "messages"=>$this->last_messages(),"binaries"=>$binaries,"devices"=>$devices]);
+    return view("mqtt",["status"=>"done",
+     "topics"=>$topics->topics,
+     "messages"=>$this->last_messages(),
+     "binaries"=>$binaries,
+     "devices"=>$devices,
+     "mqtt_received_counts"=>$mqtt_received_counts,
+     "mqtt_sent_counts"=>$mqtt_sent_counts]);
   }
 
 
 
   public function deleteTopic(Request $request){
     MQTTClient::unsubscribe($request->topic);
-    return $this->index($request);
+    return back();
   }
 
   public function addTopic(Request $request){
     MQTTClient::subscribe($request->topic);
-    return $this->index($request);
+    return back();
   }
 
   public function publish(Request $request){
     MQTTClient::publish($request->topic, $request->message);
-    return $this->index($request);
+    return back();
   }
 
   public function addDevice(Request $request){
@@ -66,7 +76,7 @@ class AdminController extends Controller
 
     Device::create(["name"=>$request->name, "description"=>"","active"=>True,"in_topic"=>$inTopic,"out_topic"=>$outTopic]);
     MQTTClient::subscribe($outTopic);
-    return $this->index($request);
+    return back();
   }
 
   public function removeDevice(Request $request){
@@ -74,7 +84,7 @@ class AdminController extends Controller
     MQTTClient::unsubscribe($device->out_topic);
     $device->delete();
 
-    return $this->index($request);
+    return back();
   }
 
   function removeProtocols($uri) {
@@ -84,6 +94,8 @@ class AdminController extends Controller
   function last_messages(){
     return DB::select("SELECT type, topic, message, created from message order by id desc limit 30");
   }
+
+
 
   function createPublishBinaryMsg($binary){
     return json_encode(["host"=>$this->removeProtocols(url('/')), "path"=>"/binaries/".$binary->real_name,"version"=>$binary->version,"branch"=>$binary->branch]);
@@ -99,7 +111,7 @@ class AdminController extends Controller
   public function deployBinary(Request $request){
     $binary = EspBinary::find($request->id);
     $this->publishBinaryDeploy($binary);
-    return $this->index($request);
+    return back();
   }
 
   public function uploadBinary(Request $request){
@@ -124,13 +136,13 @@ class AdminController extends Controller
         "status"=>"ok",
       ]);
     }
-    return $this->index($request);
+    return back();
   }
 
   public function deleteBinary(Request $request){
     $binary = EspBinary::find($request->id);
     $binary->delete();
 
-    return $this->index($request);
+    return back();
   }
 }
