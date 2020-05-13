@@ -1,7 +1,7 @@
 import paho.mqtt.client as mqtt
 from settings import MQTT_USER, MQTT_PASSWORD
 
-class MQQTClient:
+class MQTTClient:
     def __init__(self, host, topics, on_message_callback):
         self.host = host
         self.topics = set(topics)

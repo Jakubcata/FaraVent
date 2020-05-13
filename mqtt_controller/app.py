@@ -2,7 +2,7 @@ from flask import Flask, jsonify, request
 from flask_cors import CORS
 
 from settings import MQTT_HOST
-from client import MQQTClient
+from client import MQTTClient
 from models import Message, Topic
 
 
@@ -12,7 +12,7 @@ def on_message_callback(topic, message):
 
 
 topics = [topic.name for topic in Topic.select()]
-mqtt_client = MQQTClient(MQTT_HOST, topics, on_message_callback)
+mqtt_client = MQTTClient(MQTT_HOST, topics, on_message_callback)
 mqtt_client.start()
 
 app = Flask(__name__)

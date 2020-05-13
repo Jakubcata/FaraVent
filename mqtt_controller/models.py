@@ -1,6 +1,6 @@
 from datetime import datetime
 from settings import DB_HOST, DB_DATABASE, DB_PASSWORD, DB_USERNAME
-from peewee import MySQLDatabase, Model, DateTimeField, PrimaryKeyField, CharField
+from peewee import MySQLDatabase, Model, DateTimeField, PrimaryKeyField, CharField, TextField
 
 db = MySQLDatabase(
     DB_DATABASE,
@@ -28,7 +28,7 @@ class Message(BaseModel):
     id = PrimaryKeyField()
     type = CharField(max_length=20)
     topic = CharField(max_length=100)
-    message = CharField(max_length=2000)
+    message = TextField()
 
 
 class Topic(BaseModel):
