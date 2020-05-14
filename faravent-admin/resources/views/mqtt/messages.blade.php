@@ -14,21 +14,28 @@
 
 <div class="main-card mb-3 card">
     <div class="card-body">
-        <h5 class="card-title">Posledných 30 správ</h5>
-        <table class="mb-0 table">
-            <thead>
-            <tr>
-                <th>Type</th>
-                <th>Topic</th>
-                <th>Message</th>
-                <th>Date</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($messages as $message)
-              <tr><td>{{$message->type}}</td><td>{{$message->topic}}</td><td>{{$message->message}}</td><td>{{Helper::time_elapsed_string($message->created)}}</td></tr>
-            @endforeach
-            </tbody>
-        </table>
+        <h5 class="card-title">Posledných 30 správ</h5>Enable refresh <input type="checkbox" id="refresh_messages">
+        <script>
+        var timerId= 0;
+        $(function(){
+          $("#refresh_messages").click(function(){
+            if($("#refresh_messages" ).is(":checked")) {
+                timerId = setInterval(function () {
+                  $.ajax({
+                      type: "get",
+                      url: "{{route('lastMessagesSnippet')}}",
+                      cache: false,
+                      success: function (html) {
+                          $("#last-messages-table").html(html);
+                      }
+                  });
+              }, 1000);
+          } else{
+
+            clearInterval(timerId);
+          }
+      })});
+        </script>
+        @include('mqtt.messages_table')
     </div>
 </div>

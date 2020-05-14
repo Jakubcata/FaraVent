@@ -13,32 +13,57 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/',
-['as' => 'index', 'uses' => 'AdminController@index']);
+Route::get(
+    '/',
+    ['as' => 'index', 'uses' => 'AdminController@index']
+);
 
-Route::get('/deleteTopic',
-['as' => 'deleteTopic','uses' => 'AdminController@deleteTopic']);
+Route::get(
+    '/deleteTopic',
+    ['as' => 'deleteTopic','uses' => 'AdminController@deleteTopic']
+);
 
-Route::get('/addTopic',
-['as' => 'addTopic','uses' => 'AdminController@addTopic']);
+Route::get(
+    '/addTopic',
+    ['as' => 'addTopic','uses' => 'AdminController@addTopic']
+);
 
-Route::get('/publish',
-['as' => 'publish','uses' => 'AdminController@publish']);
+Route::get(
+    '/publish',
+    ['as' => 'publish','uses' => 'AdminController@publish']
+);
 
-Route::post('/uploadBinary',
-['as' => 'uploadBinary','uses' => 'AdminController@uploadBinary']);
+Route::post(
+    '/uploadBinary',
+    ['as' => 'uploadBinary','uses' => 'AdminController@uploadBinary']
+);
 
-Route::post('/api/uploadBinary',
-['uses' => 'AdminController@uploadBinary']);
+Route::post(
+    '/api/uploadBinary',
+    ['uses' => 'AdminController@uploadBinary']
+);
 
-Route::get('/deployBinary',
-['as' => 'deployBinary','uses' => 'AdminController@deployBinary']);
+Route::get(
+    '/deployBinary',
+    ['as' => 'deployBinary','uses' => 'AdminController@deployBinary']
+);
 
-Route::get('/deleteBinary',
-['as' => 'deleteBinary','uses' => 'AdminController@deleteBinary']);
+Route::get(
+    '/deleteBinary',
+    ['as' => 'deleteBinary','uses' => 'AdminController@deleteBinary']
+);
 
-Route::get('/addDevice',
-['as' => 'addDevice','uses' => 'AdminController@addDevice']);
+Route::get(
+    '/addDevice',
+    ['as' => 'addDevice','uses' => 'AdminController@addDevice']
+);
 
-Route::get('/removeDevice',
-['as' => 'removeDevice','uses' => 'AdminController@removeDevice']);
+Route::get(
+    '/removeDevice',
+    ['as' => 'removeDevice','uses' => 'AdminController@removeDevice']
+);
+
+Route::get(
+    '/api/lastMessagesSnippet',
+    ['as' => 'lastMessagesSnippet','uses' => 'AdminController@lastMessagesSnippet']
+);
