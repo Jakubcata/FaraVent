@@ -74,7 +74,7 @@ class Helper
       foreach($rows as $row){
           $fields[$row->d] = $row->c;
       }
-      return $fields;
+      return array_reverse($fields);
   }
 
   public static function formatChart($chart){

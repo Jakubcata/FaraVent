@@ -32,7 +32,7 @@
 
 <div class="main-card mb-3 card">
     <div class="card-body">
-        <h5 class="card-title">Posledných 30 správ</h5>Enable refresh <input type="checkbox" id="refresh_messages">
+        <h5 class="card-title">Posledných 30 správ</h5>Enable refresh <input type="checkbox" id="refresh_messages" autocomplete="off">
         <script>
         var timerId= 0;
         $(function(){
