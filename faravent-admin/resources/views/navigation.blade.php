@@ -34,35 +34,46 @@
             <ul class="vertical-nav-menu">
                 <li class="app-sidebar__heading">Dashboards</li>
                 <li>
-                    <a href="" class="mm-active">
+                    <a href="/" @if($path=="home") class="mm-active"@endif>
                         <i class="metismenu-icon pe-7s-rocket"></i>
                         Jakubčatá - fara
+                    </a>
+                </li>
+                <li class="app-sidebar__heading">Hardware</li>
+                <li>
+                    <a href="{{route('devicesList')}}" @if($path=="devices") class="mm-active"@endif>
+                        <i class="metismenu-icon pe-7s-display2"></i>
+                        Zariadenia
+                        <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
+                    </a>
+                    <ul>
+                        @foreach(Helper::devicesList() as $device)
+                        <li>
+                            <a href="{{route('showDevice',['id'=>$device->id])}}" @if($path=="device".$device->id) class="mm-active"@endif>
+                                <i class="metismenu-icon"></i>
+                                {{$device->verbose_name}}
+                            </a>
+                        </li>
+                        @endforeach
+                    </ul>
+                </li>
+                <li>
+                    <a href="{{route('ota')}}" @if($path=="ota") class="mm-active"@endif>
+                        <i class="metismenu-icon pe-7s-display2"></i>
+                        OTA Update
                     </a>
                 </li>
                 <li class="app-sidebar__heading">Miestnosti</li>
                 <li>
                     <a href="">
                         <i class="metismenu-icon pe-7s-display2"></i>
-                        Stará skúšobňa
+                        <span style="text-decoration: line-through;">Stará skúšobňa</span>
                     </a>
                 </li>
                 <li>
                     <a href="">
                         <i class="metismenu-icon pe-7s-display2"></i>
-                        Nová skúšobňa
-                    </a>
-                </li>
-                <li class="app-sidebar__heading">Zariadenia</li>
-                <li>
-                    <a href="">
-                        <i class="metismenu-icon pe-7s-display2"></i>
-                        Stará skúšobňa
-                    </a>
-                </li>
-                <li>
-                    <a href="">
-                        <i class="metismenu-icon pe-7s-display2"></i>
-                        Nová skúšobňa
+                        <span style="text-decoration: line-through;">Nová skúšobňa</span>
                     </a>
                 </li>
                 <li class="app-sidebar__heading">Systém</li>

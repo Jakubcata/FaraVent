@@ -9,7 +9,7 @@
         </tr>
         </thead>
         <tbody>
-        @foreach($messages as $message)
+        @foreach($lastMessages as $message)
           <tr><td>{{$message->type}}</td><td>{{$message->topic}}</td><td>{{$message->message}}</td><td>{{Helper::time_elapsed_string($message->created)}}</td></tr>
         @endforeach
         </tbody>
