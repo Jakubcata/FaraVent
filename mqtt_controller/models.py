@@ -1,39 +1,31 @@
 from datetime import datetime
-from settings import DB_HOST, DB_DATABASE, DB_PASSWORD, DB_USERNAME
-from peewee import MySQLDatabase, Model, DateTimeField, PrimaryKeyField, CharField, TextField
+from sqlalchemy import create_engine, ForeignKey, UniqueConstraint, Sequence
+from sqlalchemy import Column, DateTime, Integer, String, JSON, Text
+from sqlalchemy.ext.declarative import declarative_base
+from sqlalchemy.orm import sessionmaker, relationship, backref
+from settings import DATABASE_URL
 
-db = MySQLDatabase(
-    DB_DATABASE,
-    host=DB_HOST,
-    port=3306,
-    user=DB_USERNAME,
-    passwd=DB_PASSWORD,
-    charset="utf8mb4",
-)
+engine = create_engine(DATABASE_URL)
+Base = declarative_base()
 
-
-class BaseModel(Model):
-    created = DateTimeField(default=datetime.now)
-
-    def save(self, *args, no_update_time=False, **kwargs):
-        if not no_update_time:
-            self.created = datetime.now()
-        return super(BaseModel, self).save(*args, **kwargs)
-
-    class Meta:
-        database = db
+Session = sessionmaker()
+Session.configure(bind=engine)
+session = Session()
 
 
-class Message(BaseModel):
-    id = PrimaryKeyField()
-    type = CharField(max_length=20)
-    topic = CharField(max_length=100)
-    message = TextField()
+class Message(Base):
+    __tablename__ = "message"
+    id = Column(Integer, primary_key=True)
+    type = Column(String(20), nullable=False)
+    topic = Column(String(100), nullable=False)
+    message = Column(Text, nullable=False)
+    created = Column(DateTime,nullable=False)
 
 
-class Topic(BaseModel):
-    id = PrimaryKeyField()
-    name = CharField(max_length=100, unique=True)
+class Topic(Base):
+    __tablename__ = "topic"
+    id = Column(Integer, primary_key=True)
+    topic = Column(String(100), unique=True, nullable=False)
+    created = Column(DateTime, nullable=False)
 
-
-db.create_tables([Message, Topic], safe=True)
+#Base.metadata.create_all(engine)

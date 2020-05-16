@@ -47,10 +47,11 @@ class MQTTClient:
     def on_message(self, client, userdata, msg):
         """The callback for when a PUBLISH message is received from the server."""
 
-        print(f"{msg.topic} {msg.payload}")
+        print(f"MQTT Received {msg.topic} {msg.payload}")
         self.on_message_callback(msg.topic, msg.payload)
 
     def send_message(self, topic, message):
+        print(f"MQTT Send {topic} {message}")
         self.client.publish(topic, message)
 
     def start(self):

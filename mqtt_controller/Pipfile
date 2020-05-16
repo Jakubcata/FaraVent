@@ -8,9 +8,9 @@ verify_ssl = true
 [packages]
 paho-mqtt = "*"
 flask = "*"
-peewee = "*"
 pymysql = "*"
 flask-cors = "*"
+sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"
