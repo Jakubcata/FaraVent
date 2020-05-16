@@ -26,7 +26,7 @@ def session_commit():
         traceback.print_exc()
         session.rollback()
 
-topics = [topic.topic for topic in session.query(Topic).all()]
+topics = [topic.name for topic in session.query(Topic).all()]
 mqtt_client = MQTTClient(MQTT_HOST, topics, on_message_callback)
 mqtt_client.start()
 
@@ -42,7 +42,7 @@ def topics():
 def subscribe_topic():
     topic = request.args["topic"]
     if mqtt_client.subscribe_topic(topic):
-        session.add(Topic(topic=topic, created=datetime.now()))
+        session.add(Topic(name=topic, created=datetime.now()))
         session_commit()
     return jsonify({"topics": sorted(list(mqtt_client.topics))})
 
@@ -51,7 +51,7 @@ def subscribe_topic():
 def unsubscribe_topic():
     topic = request.args["topic"]
     if mqtt_client.unsubscribe_topic(topic):
-        session.delete(session.query(Topic).filter_by(topic=topic).first())
+        session.delete(session.query(Topic).filter_by(name=topic).first())
         session_commit()
     return jsonify({"topics": sorted(list(mqtt_client.topics))})
 

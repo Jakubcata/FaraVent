@@ -25,7 +25,7 @@ class Message(Base):
 class Topic(Base):
     __tablename__ = "topic"
     id = Column(Integer, primary_key=True)
-    topic = Column(String(100), unique=True, nullable=False)
+    name = Column(String(100), unique=True, nullable=False)
     created = Column(DateTime, nullable=False)
 
 #Base.metadata.create_all(engine)
