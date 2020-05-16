@@ -1,31 +1,19 @@
-from datetime import datetime
-from sqlalchemy import create_engine, ForeignKey, UniqueConstraint, Sequence
-from sqlalchemy import Column, DateTime, Integer, String, JSON, Text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker, relationship, backref
-from settings import DATABASE_URL
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 
-engine = create_engine(DATABASE_URL)
-Base = declarative_base()
-
-Session = sessionmaker()
-Session.configure(bind=engine)
-session = Session()
-
-
-class Message(Base):
+class Message(db.Model):
     __tablename__ = "message"
-    id = Column(Integer, primary_key=True)
-    type = Column(String(20), nullable=False)
-    topic = Column(String(100), nullable=False)
-    message = Column(Text, nullable=False)
-    created = Column(DateTime,nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(20), nullable=False)
+    topic = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime,nullable=False)
 
 
-class Topic(Base):
+class Topic(db.Model):
     __tablename__ = "topic"
-    id = Column(Integer, primary_key=True)
-    name = Column(String(100), unique=True, nullable=False)
-    created = Column(DateTime, nullable=False)
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    created = db.Column(db.DateTime, nullable=False)
 
-#Base.metadata.create_all(engine)
+#db.create_all()

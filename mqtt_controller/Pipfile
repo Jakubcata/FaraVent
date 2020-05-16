@@ -11,6 +11,8 @@ flask = "*"
 pymysql = "*"
 flask-cors = "*"
 sqlalchemy = "*"
+requests = "*"
+flask-sqlalchemy = "*"
 
 [requires]
 python_version = "3.7"

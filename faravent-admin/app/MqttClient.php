@@ -15,7 +15,7 @@ class MQTTClient
 
     public static function sendMessage($topic, $message)
     {
-        file_get_contents(env('MQTT_CONTROLLER')."/publish/?topic=".urlencode($topic)."&message=".urlencode($message));
+        file_get_contents(env('MQTT_CONTROLLER')."/publish?topic=".urlencode($topic)."&message=".urlencode($message));
     }
 
     public static function topics()
