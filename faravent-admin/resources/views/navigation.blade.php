@@ -46,7 +46,7 @@
                         Zariadenia
                         <i class="metismenu-state-icon pe-7s-angle-down caret-left"></i>
                     </a>
-                    <ul>
+                    <ul class="mm-show">
                         @foreach(Helper::devicesList() as $device)
                         <li>
                             <a href="{{route('showDevice',['id'=>$device->id])}}" @if($path=="device".$device->id) class="mm-active"@endif>
@@ -87,6 +87,12 @@
                     <a href="">
                         <i class="metismenu-icon pe-7s-display2"></i>
                         System logs
+                    </a>
+                </li>
+                <li style="display:none;" id="install-button">
+                    <a href="">
+                        <i class="metismenu-icon pe-7s-display2"></i>
+                        Install app
                     </a>
                 </li>
             </ul>
