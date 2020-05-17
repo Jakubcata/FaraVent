@@ -2,7 +2,7 @@ from datetime import datetime
 from flask import Flask, jsonify, request
 from flask_cors import CORS
 
-from settings import MQTT_HOST, DATABASE_URL, FLASK_URL
+from settings import MQTT_HOST, DATABASE_URL
 from client import MQTTClient
 from models import Message, Topic, db
 import requests
