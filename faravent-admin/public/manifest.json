@@ -1,0 +1,16 @@
+{
+  "short_name": "FaraVent",
+  "name": "Faravent Admin",
+  "icons": [
+    {
+      "src": "/favicon300.png",
+      "type": "image/png",
+      "sizes": "300x300"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#4fafbf",
+  "display": "standalone",
+  "scope": "/",
+  "theme_color": "#4fafbf"
+}
