@@ -3,9 +3,9 @@
   "name": "Faravent Admin",
   "icons": [
     {
-      "src": "/favicon300.png",
+      "src": "/favicon512.png",
       "type": "image/png",
-      "sizes": "300x300"
+      "sizes": "512x512"
     }
   ],
   "start_url": "/",

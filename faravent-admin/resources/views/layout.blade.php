@@ -109,6 +109,7 @@
     </div>
     <div id="toast-container" class="toast-top-right">
     </div>
+<script type="text/javascript" src="/assets/scripts/main.js"></script>
 <script type="text/javascript" src="/main.js"></script>
 </body>
 </html>
