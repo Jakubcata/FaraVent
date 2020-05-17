@@ -34,6 +34,7 @@ var vis = (function(){
 let deferredPrompt;
 const addBtn = document.querySelector('#install-button');
 window.addEventListener('beforeinstallprompt', (e) => {
+  alert("som tu");
   // Prevent Chrome 67 and earlier from automatically showing the prompt
   e.preventDefault();
   // Stash the event so it can be triggered later.
