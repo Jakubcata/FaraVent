@@ -1,39 +1,19 @@
-from datetime import datetime
-from settings import DB_HOST, DB_DATABASE, DB_PASSWORD, DB_USERNAME
-from peewee import MySQLDatabase, Model, DateTimeField, PrimaryKeyField, CharField, TextField
+from flask_sqlalchemy import SQLAlchemy
+db = SQLAlchemy()
 
-db = MySQLDatabase(
-    DB_DATABASE,
-    host=DB_HOST,
-    port=3306,
-    user=DB_USERNAME,
-    passwd=DB_PASSWORD,
-    charset="utf8mb4",
-)
+class Message(db.Model):
+    __tablename__ = "message"
+    id = db.Column(db.Integer, primary_key=True)
+    type = db.Column(db.String(20), nullable=False)
+    topic = db.Column(db.String(100), nullable=False)
+    message = db.Column(db.Text, nullable=False)
+    created = db.Column(db.DateTime,nullable=False)
 
 
-class BaseModel(Model):
-    created = DateTimeField(default=datetime.now)
+class Topic(db.Model):
+    __tablename__ = "topic"
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), unique=True, nullable=False)
+    created = db.Column(db.DateTime, nullable=False)
 
-    def save(self, *args, no_update_time=False, **kwargs):
-        if not no_update_time:
-            self.created = datetime.now()
-        return super(BaseModel, self).save(*args, **kwargs)
-
-    class Meta:
-        database = db
-
-
-class Message(BaseModel):
-    id = PrimaryKeyField()
-    type = CharField(max_length=20)
-    topic = CharField(max_length=100)
-    message = TextField()
-
-
-class Topic(BaseModel):
-    id = PrimaryKeyField()
-    name = CharField(max_length=100, unique=True)
-
-
-db.create_tables([Message, Topic], safe=True)
+#db.create_all()

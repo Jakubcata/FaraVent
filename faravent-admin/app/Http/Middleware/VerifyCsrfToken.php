@@ -11,7 +11,7 @@ class VerifyCsrfToken extends Middleware
      *
      * @var array
      */
-    protected $except = ['/api/uploadBinary'
+    protected $except = ['/api/uploadBinary', '/api/ota/binary/upload'
         //
     ];
 }

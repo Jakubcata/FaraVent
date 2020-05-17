@@ -15,55 +15,51 @@ use Illuminate\Support\Facades\Route;
 
 Route::get(
     '/',
-    ['as' => 'index', 'uses' => 'AdminController@index']
+    ['as' => 'index', 'uses' => 'MqttController@index']
 );
 
-Route::get(
-    '/deleteTopic',
-    ['as' => 'deleteTopic','uses' => 'AdminController@deleteTopic']
-);
 
-Route::get(
-    '/addTopic',
-    ['as' => 'addTopic','uses' => 'AdminController@addTopic']
-);
 
-Route::get(
-    '/publish',
-    ['as' => 'publish','uses' => 'AdminController@publish']
-);
+Route::group(['prefix' => 'ota'], function () {
+    Route::get(
+        '/',
+        ['as' => 'ota', 'uses' => 'OtaUpdateController@index']
+    );
+    Route::get(
+        '/binary/deploy',
+        ['as' => 'deployBinary','uses' => 'OtaUpdateController@deployBinary']
+    );
 
-Route::post(
-    '/uploadBinary',
-    ['as' => 'uploadBinary','uses' => 'AdminController@uploadBinary']
-);
+    Route::post(
+        '/binary/upload',
+        ['as' => 'uploadBinary','uses' => 'OtaUpdateController@uploadBinary']
+    );
 
-Route::post(
-    '/api/uploadBinary',
-    ['uses' => 'AdminController@uploadBinary']
-);
+    Route::get(
+        '/binary/delete',
+        ['as' => 'deleteBinary','uses' => 'OtaUpdateController@deleteBinary']
+    );
+});
 
-Route::get(
-    '/deployBinary',
-    ['as' => 'deployBinary','uses' => 'AdminController@deployBinary']
-);
 
-Route::get(
-    '/deleteBinary',
-    ['as' => 'deleteBinary','uses' => 'AdminController@deleteBinary']
-);
+Route::group(['prefix' => 'devices'], function () {
+    Route::get(
+        '/',
+        ['as' => 'devicesList', 'uses' => 'DeviceController@index']
+    );
 
-Route::get(
-    '/addDevice',
-    ['as' => 'addDevice','uses' => 'AdminController@addDevice']
-);
+    Route::get(
+        '/add',
+        ['as' => 'addDevice','uses' => 'DeviceController@addDevice']
+    );
 
-Route::get(
-    '/removeDevice',
-    ['as' => 'removeDevice','uses' => 'AdminController@removeDevice']
-);
+    Route::get(
+        '/remove',
+        ['as' => 'removeDevice','uses' => 'DeviceController@removeDevice']
+    );
 
-Route::get(
-    '/api/lastMessagesSnippet',
-    ['as' => 'lastMessagesSnippet','uses' => 'AdminController@lastMessagesSnippet']
-);
+    Route::get(
+        '/show',
+        ['as' => 'showDevice','uses' => 'DeviceController@showDevice']
+    );
+});

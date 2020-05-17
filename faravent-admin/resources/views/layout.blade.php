@@ -11,6 +11,7 @@
     <meta name="description" content="This is an example dashboard created using build-in elements and components.">
     <meta name="msapplication-tap-highlight" content="no">
     <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.3/dist/Chart.min.js"></script>
     <!--
     =========================================================
@@ -22,7 +23,7 @@
     =========================================================
     * The above copyright notice and this permission notice shall be included in all copies or substantial portions of the Software.
     -->
-<link href="./main.css" rel="stylesheet"></head>
+<link href="/main.css" rel="stylesheet"></head>
 <body>
     <div class="app-container app-theme-white body-tabs-shadow fixed-sidebar fixed-header">
         <div class="app-header header-shadow">
@@ -64,7 +65,7 @@
                                 <div class="widget-content-left">
                                     <div class="btn-group">
                                         <a data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" class="p-0 btn">
-                                            <img width="42" class="rounded-circle" src="assets/images/avatars/admin.jpg" alt="">
+                                            <img width="42" class="rounded-circle" src="/assets/images/avatars/admin.jpg" alt="">
                                             <i class="fa fa-angle-down ml-2 opacity-8"></i>
                                         </a>
                                         <div tabindex="-1" role="menu" aria-hidden="true" class="dropdown-menu dropdown-menu-right">
@@ -97,12 +98,16 @@
             </div>
         </div>
         <div class="app-main">
-                @include('navigation')
-                <div class="app-main__outer">
-                    <div class="app-main__inner">
-                        @yield('content')
-                    </div>
+            @include('navigation')
+            <div class="app-main__outer">
+                <div class="app-main__inner">
+                    @yield('content')
+                </div>
+            </div>
         </div>
     </div>
-<script type="text/javascript" src="./assets/scripts/main.js"></script></body>
+    <div id="toast-container" class="toast-top-right">
+    </div>
+<script type="text/javascript" src="/main.js"></script>
+</body>
 </html>

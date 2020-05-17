@@ -1,4 +1,5 @@
 import paho.mqtt.client as mqtt
+import traceback
 from settings import MQTT_USER, MQTT_PASSWORD
 
 class MQTTClient:
@@ -47,10 +48,14 @@ class MQTTClient:
     def on_message(self, client, userdata, msg):
         """The callback for when a PUBLISH message is received from the server."""
 
-        print(f"{msg.topic} {msg.payload}")
-        self.on_message_callback(msg.topic, msg.payload)
+        print(f"MQTT Received {msg.topic} {msg.payload}")
+        try:
+            self.on_message_callback(msg.topic, msg.payload)
+        except Exception:
+            traceback.print_exc()
 
     def send_message(self, topic, message):
+        print(f"MQTT Send {topic} {message}")
         self.client.publish(topic, message)
 
     def start(self):
