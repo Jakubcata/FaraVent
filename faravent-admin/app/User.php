@@ -36,4 +36,14 @@ class User extends Authenticatable
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+    public function isDefault()
+    {
+        return $this->name == 'default';
+    }
+
+    public static function getDefault()
+    {
+        return self::where('name', '=', 'default')->first();
+    }
 }

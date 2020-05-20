@@ -63,3 +63,7 @@ Route::group(['prefix' => 'devices'], function () {
         ['as' => 'showDevice','uses' => 'DeviceController@showDevice']
     );
 });
+
+Route::get('/login', 'Auth\LoginController@getLogin')->name('login');
+Route::post('/login', 'Auth\LoginController@login')->name('postLogin');
+Route::get('/logout', 'Auth\LoginController@logout')->name('logout');
