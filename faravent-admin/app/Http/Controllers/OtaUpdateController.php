@@ -80,7 +80,7 @@ class OtaUpdateController extends Controller
     {
         $devices = Device::where("active", true)->get();
         foreach ($devices as $device) {
-            MQTTClient::sendMessage($device->updateTopic(), $this->createOtaUpdateMessages($binary));
+            MQTTClient::sendMessage($device->update_topic, $this->createOtaUpdateMessages($binary));
         }
     }
 }
