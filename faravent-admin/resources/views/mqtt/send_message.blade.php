@@ -15,6 +15,7 @@ $(function(){
         $.get({
             url:"{{route('sendMessage')}}",
             data:{
+                api_token:"{{$currentUser->api_token}}",
                 topic:$("#send-message-form input[name='topic']").val(),
                 message:$("#send-message-form input[name='message']").val(),
             },

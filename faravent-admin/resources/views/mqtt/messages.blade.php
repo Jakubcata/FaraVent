@@ -8,6 +8,9 @@
                             type: "get",
                             url: "{{$messagesUrl}}",
                             cache: false,
+                            data:{
+                                api_token:"{{$currentUser->api_token}}"
+                            },
                             success: function (html) {
                                 $("#last-messages-table").html(html);
                             },

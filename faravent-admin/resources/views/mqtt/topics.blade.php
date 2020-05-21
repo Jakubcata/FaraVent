@@ -15,6 +15,7 @@ $(function(){
         $.get({
             url:"{{route('addTopic')}}",
             data:{
+                api_token:"{{$currentUser->api_token}}",
                 topic:$("#add-topic-form input[name='topic']").val(),
             },
             success:function(data){
@@ -35,6 +36,9 @@ function reloadTopics(){
         type: "get",
         url: "{{route('topicsSnippet')}}",
         cache: false,
+        data:{
+            api_token:"{{$currentUser->api_token}}"
+        },
         success: function (html) {
             $("#topics-table").fadeOut('fast', function() {
                 $("#topics-table").html(html);
@@ -53,6 +57,7 @@ function deleteTopic(topic){
     $.get({
         url:"{{route('deleteTopic')}}",
         data:{
+            api_token:"{{$currentUser->api_token}}",
             topic:topic,
         },
         success:function(data){

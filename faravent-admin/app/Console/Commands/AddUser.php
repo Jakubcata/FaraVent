@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\User;
-
+use Illuminate\Support\Str;
 use Illuminate\Console\Command;
 
 class AddUser extends Command
@@ -44,7 +44,11 @@ class AddUser extends Command
         $password = $this->option('password');
 
 
-        $u = new User(['name'=>$name, 'email'=>$email, 'password'=>bcrypt($password)]);
-        $u->save();
+        User::create([
+            'name'=>$name,
+            'email'=>$email,
+            'password'=>bcrypt($password),
+            'api_token'=>Str::random(60)
+        ]);
     }
 }

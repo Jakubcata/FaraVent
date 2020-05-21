@@ -14,43 +14,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+Route::middleware('auth:api')->group(function () {
+    Route::group(['prefix' => 'mqtt'], function () {
+        Route::get('/message/send', 'MqttController@sendMessage')->name('sendMessage');
+        Route::get('/topic/delete', 'MqttController@deleteTopic')->name('deleteTopic');
+        Route::get('/topic/add', 'MqttController@addTopic')->name('addTopic');
+        Route::get('/topic/list', 'MqttController@topicsSnippet')->name('topicsSnippet');
+        Route::get('/lastMessagesSnippet', 'MqttController@lastMessagesSnippet')->name('lastMessagesSnippet');
+    });
 
-Route::group(['prefix' => 'mqtt'], function () {
-    Route::get(
-        '/message/send',
-        ['as' => 'sendMessage','uses' => 'MqttController@sendMessage']
-    );
-
-    Route::get(
-        '/topic/delete',
-        ['as' => 'deleteTopic','uses' => 'MqttController@deleteTopic']
-    );
-
-    Route::get(
-        '/topic/add',
-        ['as' => 'addTopic','uses' => 'MqttController@addTopic']
-    );
-
-    Route::get(
-        '/topic/list',
-        ['as' => 'topicsSnippet','uses' => 'MqttController@topicsSnippet']
-    );
-
-    Route::get(
-        '/lastMessagesSnippet',
-        ['as' => 'lastMessagesSnippet','uses' => 'MqttController@lastMessagesSnippet']
-    );
-});
-
-
-Route::group(['prefix' => 'device'], function () {
-    Route::get(
-        '/lastMessagesSnippet',
-        ['as' => 'deviceLastMessagesSnippet','uses' => 'DeviceController@lastMessagesSnippet']
-    );
+    Route::group(['prefix' => 'device'], function () {
+        Route::get('/lastMessagesSnippet', 'DeviceController@lastMessagesSnippet')->name('deviceLastMessagesSnippet');
+    });
 });
 
 # Old deprecated upload binary url
