@@ -19,6 +19,11 @@ class MqttController extends Controller
             "path"=>"home",
             "lastMessages" => $this->lastMessages(),
             "lastMessagesChart" => $this->lastMessagesChart(),
+            "temperatureChart" => $this->sensorValuesChart("Temperature", "temperature_chart", "temperature", time()-3600*24*7, time(), 3600),
+            "humidityChart" => $this->sensorValuesChart("Humidity", "humidity_chart", "humidity", time()-3600*24*7, time(), 3600),
+            "movementChart" => $this->sensorValuesChart("Movement", "movement_chart", "movement", time()-3600*24*7, time(), 600),
+            "signalChart" => $this->sensorValuesChart("Signal", "signal_chart", "signal", time()-3600*24*7, time(), 600),
+
             "topics" => MQTTClient::topics()->topics,
         ]);
     }
@@ -37,13 +42,23 @@ class MqttController extends Controller
 
     private function lastMessagesChart()
     {
-        $mqttReceivedCounts = Helper::messagesCounts("message", "created", 10, "d", "and type='received'");
-        $mqttSentCounts = Helper::messagesCounts("message", "created", 10, "d", "and type='sent'");
+        $mqttReceivedCounts = Helper::messagesCountsF("message", 3600, time()-7*24*3600, time(), "type='received'");
+        $mqttSentCounts = Helper::messagesCountsF("message", 3600, time()-7*24*3600, time(), "type='sent'");
+
+        //$mqttSentCounts = Helper::messagesCounts("message", "created", 10, "d", "and type='sent'");
 
         $receivedCountsDataset = new ChartDataset("Received Messages", array_values($mqttReceivedCounts), "rgb(255, 159, 64)");
         $sentCountsDataset = new ChartDataset("Sent Messages", array_values($mqttSentCounts), "rgb(54, 162, 235)");
 
         return new Chart("last_messages", array_keys($mqttReceivedCounts), array($receivedCountsDataset, $sentCountsDataset));
+    }
+
+    private function sensorValuesChart($name, $chartID, $column, $start, $end, $diff)
+    {
+        $sensorsValues = Helper::sensorValues($column, $diff, $start, $end, "1=1");
+        $sensorValuesDataset = new ChartDataset($name, array_values($sensorsValues), "rgb(54, 162, 235)");
+
+        return new Chart($chartID, array_keys($sensorsValues), array($sensorValuesDataset));
     }
 
     public function sendMessage(Request $request)

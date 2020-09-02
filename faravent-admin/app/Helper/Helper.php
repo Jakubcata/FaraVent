@@ -40,44 +40,59 @@ class Helper
         return $string ? implode(', ', $string) . ' ago' : 'just now';
     }
 
-    public static function messagesCounts($table, $date_col, $number=10, $unit="d", $where_cond="")
+    public static function roundTime($time, $diff)
     {
-        $fields = [];
-        $now = Carbon::now();
+        return floor($time/$diff)*$diff;
+    }
 
-        if ($unit=="d") {
-            $base = "CURDATE()";
-            $granularity_sql = "%Y-%m-%d-00:00:00";
-            $interval_sql = "INTERVAL {$number} DAY";
-            for ($i=0; $i<$number; $i++) {
-                $fields[$now->format('Y-m-d 00:00:00')] = 0;
-                $now = $now->subDay();
-            }
-        } elseif ($unit=="h") {
-            $granularity_sql = "%Y-%m-%d-%H:00:00";
-            $base = "CONVERT(DATE_FORMAT(NOW(),'{$granularity_sql}'),DATETIME)";
-            $interval_sql = "INTERVAL {$number} HOUR";
+    public static function fill($data, $start, $end, $diff)
+    {
+    }
 
-            for ($i=0; $i<$number; $i++) {
-                $fields[$now->format('Y-m-d H:00:00')] = 0;
-                $now = $now->subHour();
-            }
-        } elseif ($unit=="m") {
-            $granularity_sql = "%Y-%m-%d-%H:%i:00";
-            $base = "CONVERT(DATE_FORMAT(NOW(),'{$granularity_sql}'),DATETIME)";
-            $interval_sql = "INTERVAL {$number} MINUTE";
-            for ($i=0; $i<$number; $i++) {
-                $fields[$now->format('Y-m-d H:i:00')] = 0;
-                $now = $now->subMinute();
-            }
-        }
-
-        $sql = "SELECT count(*) as c, CONVERT(DATE_FORMAT({$date_col},'{$granularity_sql}'),DATETIME) as d FROM `{$table}` where {$date_col}>(DATE_SUB({$base}, {$interval_sql})) {$where_cond} group by CONVERT(DATE_FORMAT({$date_col},'{$granularity_sql}'),DATETIME)";
+    public static function messagesCountsF($table, $diff, $start, $end, $where_cond)
+    {
+        $sql = "SELECT (UNIX_TIMESTAMP(created) DIV {$diff}) as d, count(*) as c FROM `message` where UNIX_TIMESTAMP(created)>={$start} and UNIX_TIMESTAMP(created)<={$end} and {$where_cond} group by (UNIX_TIMESTAMP(created) DIV {$diff})";
         $rows = DB::select($sql);
+
+        $fields = array();
+
         foreach ($rows as $row) {
-            $fields[$row->d] = $row->c;
+            $fields[$row->d*$diff] = $row->c;
         }
-        return array_reverse($fields);
+
+        $start = self::roundTime($start, $diff);
+        $end = self::roundTime($end, $diff);
+
+        for ($i=$start; $i<=$end; $i+=$diff) {
+            if (!isset($fields[$i])) {
+                $fields[$i] = 0;
+            }
+        }
+        ksort($fields);
+        return $fields;
+    }
+
+    public static function sensorValues($column, $diff, $start, $end, $where_cond, $f="avg")
+    {
+        $sql = "SELECT (UNIX_TIMESTAMP(created) DIV {$diff}) as d, {$f}(`{$column}`) as c FROM `sensor_values` where UNIX_TIMESTAMP(created)>={$start} and UNIX_TIMESTAMP(created)<={$end} and {$where_cond} group by (UNIX_TIMESTAMP(created) DIV {$diff})";
+        $rows = DB::select($sql);
+
+        $fields = array();
+
+        foreach ($rows as $row) {
+            $fields[$row->d*$diff] = $row->c;
+        }
+
+        $start = self::roundTime($start, $diff);
+        $end = self::roundTime($end, $diff);
+
+        for ($i=$start; $i<=$end; $i+=$diff) {
+            if (!isset($fields[$i])) {
+                $fields[$i] = 0;
+            }
+        }
+        ksort($fields);
+        return $fields;
     }
 
     public static function devicesList()

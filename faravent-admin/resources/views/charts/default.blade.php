@@ -11,6 +11,7 @@ $(function(){
             borderColor: '{!! $dataset->color !!}',
             backgroundColor: 'rgba(255, 255, 255, 0)',
             data: [{!! $dataset->formatValues() !!}],
+            pointRadius: 0,
           },
           @endforeach
         ]

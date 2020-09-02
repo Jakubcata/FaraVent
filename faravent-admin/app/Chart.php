@@ -18,7 +18,8 @@ class Chart
     public function formatLabels() : string
     {
         return implode(",", array_map(function ($x) {
-            return "'{$x}'";
+            $t = gmdate("Y-m-d H:i:s", $x);
+            return "'{$t}'";
         }, $this->labels));
     }
 }

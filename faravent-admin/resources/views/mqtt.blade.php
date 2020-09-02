@@ -14,6 +14,26 @@
         </div>
         <div class="main-card mb-3 card">
             <div class="card-body">
+                @include('mqtt.sensor_values_chart',["chartName"=>"Temperature","chart"=>$temperatureChart])
+            </div>
+        </div>
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                @include('mqtt.sensor_values_chart',["chartName"=>"Movement","chart"=>$movementChart])
+            </div>
+        </div>
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                @include('mqtt.sensor_values_chart',["chartName"=>"Humidity","chart"=>$humidityChart])
+            </div>
+        </div>
+        <div class="main-card mb-3 card">
+            <div class="card-body">
+                @include('mqtt.sensor_values_chart',["chartName"=>"Signal","chart"=>$signalChart])
+            </div>
+        </div>
+        <div class="main-card mb-3 card">
+            <div class="card-body">
                 @include('mqtt.topics')
             </div>
         </div>
