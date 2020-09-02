@@ -21,7 +21,7 @@ class MqttController extends Controller
             "lastMessagesChart" => $this->lastMessagesChart(),
             "temperatureChart" => $this->sensorValuesChart("Temperature", "temperature_chart", "temperature", time()-3600*24*7, time(), 600),
             "humidityChart" => $this->sensorValuesChart("Humidity", "humidity_chart", "humidity", time()-3600*24*7, time(), 600),
-            "movementChart" => $this->sensorValuesChart("Movement", "movement_chart", "movement", time()-3600*24*7, time(), 600),
+            "movementChart" => $this->sensorValuesChart("Movement", "movement_chart", "movement", time()-3600*24*7, time(), 600, "max"),
             "signalChart" => $this->sensorValuesChart("Signal", "signal_chart", "signal", time()-3600*24*7, time(), 600),
 
             "topics" => MQTTClient::topics()->topics,
