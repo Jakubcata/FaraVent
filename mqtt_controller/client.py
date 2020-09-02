@@ -48,8 +48,8 @@ class MQTTClient:
     def on_message(self, client, userdata, msg):
         """The callback for when a PUBLISH message is received from the server."""
 
-        print(f"MQTT Received {msg.topic} {msg.payload}")
         try:
+            print(f"MQTT Received {msg.topic} {msg.payload.decode()}")
             self.on_message_callback(msg.topic, msg.payload)
         except Exception:
             traceback.print_exc()
