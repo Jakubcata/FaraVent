@@ -6,10 +6,10 @@
     </div>
 </div>
 <form id="{{$chart->id}}-form">
-    <input type="range" class="custom-range" id="start">
-    <input type="range" class="custom-range" id="end">
+    <input type="range" class="custom-range" id="start" style="padding-left:45px; padding-right:17px;">
+    <input type="range" class="custom-range" id="end" style="padding-left:45px; padding-right:17px;">
   <div class="input-group">
-    Start<input name="start" type="text" value="{{date('Y-m-d H:i:s',$chart->start)}}" class="form-control">
+    Start<input name="start" type="text" value="{{date('Y-m-d H:i:s',$chart->start)}}" class="form-control" >
     End<input name="end" type="text" value="{{date('Y-m-d H:i:s',$chart->end)}}" class="form-control">
     Interval<input type="text" name="interval" value="3600" class="form-control">
     <button class="btn btn-primary">Update</button>
