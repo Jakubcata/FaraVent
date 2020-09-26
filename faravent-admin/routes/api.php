@@ -24,6 +24,10 @@ Route::middleware('auth:api')->group(function () {
     });
 
     Route::group(['prefix' => 'device'], function () {
+        Route::get('/sensorChart', 'MqttController@sensorChart')->name('sensorChart');
+    });
+
+    Route::group(['prefix' => 'device'], function () {
         Route::get('/lastMessagesSnippet', 'DeviceController@lastMessagesSnippet')->name('deviceLastMessagesSnippet');
     });
 });

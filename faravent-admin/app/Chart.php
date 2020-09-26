@@ -4,13 +4,19 @@ namespace App;
 class Chart
 {
     public $id;
+    public $type;
+    public $start;
+    public $end;
     public $labels;
     public $datasets;
 
 
-    public function __construct(string $id, array $labels, array $datasets)
+    public function __construct(string $id, string $type, int $start, int $end, array $labels, array $datasets)
     {
         $this->id = $id;
+        $this->type = $type;
+        $this->start = $start;
+        $this->end = $end;
         $this->labels = $labels;
         $this->datasets = $datasets;
     }
