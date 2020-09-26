@@ -28,4 +28,11 @@ class Chart
             return "'{$t}'";
         }, $this->labels));
     }
+
+    public function formatJSONLabels() : array
+    {
+        return array_map(function ($x) {
+            return gmdate("Y-m-d H:i:s", $x);
+        }, $this->labels);
+    }
 }

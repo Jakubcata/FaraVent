@@ -33,7 +33,19 @@ class MqttController extends Controller
         $start = DateTime::createFromFormat('Y-m-d H:i:s', $request->start);
         $end = DateTime::createFromFormat('Y-m-d H:i:s', $request->end);
 
-        return view('charts.default', ["chart"=>$this->sensorValuesChart($request->type, $start->getTimestamp(), $end->getTimestamp(), $request->diff)]);
+        $chart = $this->sensorValuesChart($request->type, $start->getTimestamp(), $end->getTimestamp(), $request->diff);
+
+        $datasets = [];
+        foreach ($chart->datasets as $dataset) {
+            $datasets[] = $dataset->values;
+        }
+
+        $data = [
+          "labels" => $chart->formatJSONLabels(),
+          "datasets"=> $datasets,
+        ];
+
+        return response()->json($data);
     }
 
     private function lastMessages()

@@ -15,19 +15,26 @@
 </form>
 <script>
 
-function update_{{$chart->id}}(){
+function update_{{$chart->id}}(start, end){
+    console.log("update",start,end)
     $.get({
         url:"{{route('sensorChart')}}",
         data:{
             api_token:"{{$currentUser->api_token}}",
             type:'{{$chart->type}}',
-            start:$("#{{$chart->id}}-form input[name='start']").val(),
-            end:$("#{{$chart->id}}-form input[name='end']").val(),
+            start:start,
+            end:end,
             diff:$("#{{$chart->id}}-form input[name='interval']").val(),
         },
         success:function(data){
-            {{$chart->id}}.destroy();
-            $("#{{$chart->id}}-script").html(data);
+            {{$chart->id}}.data.labels = data.labels;
+            {{$chart->id}}.data.datasets.forEach((dataset) => {
+                dataset.data = data.datasets[0];
+            });
+            {{$chart->id}}.update();
+            $("#{{$chart->id}}-form input[name='start']").val(start);
+            $("#{{$chart->id}}-form input[name='end']").val(end);
+            //$("#{{$chart->id}}-script").html(data);
         },
         error:function(data){
             showToast("toast-error","Chart update error<br/>"+data.responseText, 5000);
@@ -38,7 +45,7 @@ function update_{{$chart->id}}(){
 $(function(){
     $("#{{$chart->id}}-form button").click(function(e){
         e.preventDefault();
-        update_{{$chart->id}}();
+        update_{{$chart->id}}($("#{{$chart->id}}-form input[name='start']").val(),$("#{{$chart->id}}-form input[name='end']").val());
     });
 });
 </script>
