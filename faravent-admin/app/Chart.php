@@ -24,7 +24,7 @@ class Chart
     public function formatLabels() : string
     {
         return implode(",", array_map(function ($x) {
-            $t = gmdate("Y-m-d H:i:s", $x);
+            $t = date("Y-m-d H:i:s", $x);
             return "'{$t}'";
         }, $this->labels));
     }
