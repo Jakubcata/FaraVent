@@ -32,7 +32,7 @@ class Chart
     public function formatJSONLabels() : array
     {
         return array_map(function ($x) {
-            return gmdate("Y-m-d H:i:s", $x);
+            return date("Y-m-d H:i:s", $x);
         }, $this->labels);
     }
 }
