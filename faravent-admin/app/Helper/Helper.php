@@ -86,7 +86,7 @@ class Helper
         $start = self::roundTime($start, $diff);
         $end = self::roundTime($end, $diff);
 
-        for ($i=$start; $i<=$end; $i+=$diff) {
+        for ($i=$start; $i<$end; $i+=$diff) {
             if (!isset($fields[$i])) {
                 $fields[$i] = 0;
             }
