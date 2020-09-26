@@ -6,6 +6,8 @@
     </div>
 </div>
 <form id="{{$chart->id}}-form">
+    <input type="range" class="custom-range" id="start">
+    <input type="range" class="custom-range" id="end">
   <div class="input-group">
     Start<input name="start" type="text" value="{{date('Y-m-d H:i:s',$chart->start)}}" class="form-control">
     End<input name="end" type="text" value="{{date('Y-m-d H:i:s',$chart->end)}}" class="form-control">
@@ -16,7 +18,7 @@
 <script>
 
 function update_{{$chart->id}}(start, end){
-    console.log("update",start,end)
+    //console.log("update",start,end)
     $.get({
         url:"{{route('sensorChart')}}",
         data:{
@@ -34,6 +36,12 @@ function update_{{$chart->id}}(start, end){
             {{$chart->id}}.update();
             $("#{{$chart->id}}-form input[name='start']").val(start);
             $("#{{$chart->id}}-form input[name='end']").val(end);
+            $("#{{$chart->id}}-form #start").attr('max',{{$chart->id}}.data.labels.length-1);
+            $("#{{$chart->id}}-form #end").attr('max',{{$chart->id}}.data.labels.length-1);
+
+            $("#{{$chart->id}}-form #start").val(0);
+            $("#{{$chart->id}}-form #end").val({{$chart->id}}.data.labels.length-1);
+
             //$("#{{$chart->id}}-script").html(data);
         },
         error:function(data){
@@ -52,3 +60,23 @@ $(function(){
 <div id="{{$chart->id}}-script">
 @include('charts.default',["chart"=>$chart])
 </div>
+<script>
+$(function(){
+    $("#{{$chart->id}}-form #start").attr('max',{{$chart->id}}.data.labels.length-1);
+    $("#{{$chart->id}}-form #end").attr('max',{{$chart->id}}.data.labels.length-1);
+
+    $("#{{$chart->id}}-form #start").val(0);
+    $("#{{$chart->id}}-form #end").val({{$chart->id}}.data.labels.length-1);
+
+    $("#{{$chart->id}}-form #start").change(function(e){
+        idx = $("#{{$chart->id}}-form #start").val();
+        //console.log(idx);
+        $("#{{$chart->id}}-form input[name='start']").val({{$chart->id}}.data.labels[idx]);
+    });
+    $("#{{$chart->id}}-form #end").change(function(e){
+        idx = $("#{{$chart->id}}-form #end").val();
+        //console.log(idx);
+        $("#{{$chart->id}}-form input[name='end']").val({{$chart->id}}.data.labels[idx]);
+    });
+});
+</script>
