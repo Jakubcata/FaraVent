@@ -7,8 +7,8 @@
 </div>
 <form id="{{$chart->id}}-form">
   <div class="input-group">
-    Start<input name="start" type="datetime-local" value="{{date('Y-m-d H:i:s',$chart->start)}}" class="form-control">
-    End<input name="end" type="datetime-local" value="{{date('Y-m-d H:i:s',$chart->end)}}" class="form-control">
+    Start<input name="start" type="text" value="{{date('Y-m-d H:i:s',$chart->start)}}" class="form-control">
+    End<input name="end" type="text" value="{{date('Y-m-d H:i:s',$chart->end)}}" class="form-control">
     Interval<input type="text" name="interval" value="3600" class="form-control">
     <button class="btn btn-primary">Update</button>
   </div>

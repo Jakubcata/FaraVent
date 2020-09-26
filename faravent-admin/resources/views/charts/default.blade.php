@@ -22,10 +22,11 @@ $(function(){
       	tooltips: {
       		mode: 'index',
       		intersect: false,
+            enabled: false,
       	},
       	hover: {
       		mode: 'nearest',
-      		intersect: true
+      		intersect: true,
       	},
       	scales: {
       		xAxes: [{
