@@ -3,6 +3,7 @@ namespace App\Helper;
 
 use Illuminate\Support\Facades\DB;
 use Carbon\Carbon;
+use DateTimeZone;
 use DateTime;
 use App\Device;
 
@@ -11,7 +12,7 @@ class Helper
     public static function time_elapsed_string($datetime, $full = false)
     {
         $now = new DateTime;
-        $ago = new DateTime($datetime);
+        $ago = new DateTime($datetime, new DateTimeZone('UTC'));
         $diff = $now->diff($ago);
 
         $diff->w = floor($diff->d / 7);
