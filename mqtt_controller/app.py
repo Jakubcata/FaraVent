@@ -5,6 +5,7 @@ from flask_cors import CORS
 from settings import MQTT_HOST, DATABASE_URL
 from client import MQTTClient
 from models import Message, Topic, SensorValues, db
+from qr_code import eur_code, cz_code
 import requests
 import json
 
@@ -79,6 +80,14 @@ def send_message():
     db.session.commit()
     return jsonify({"topic": topic, "message": message, "status": "sent"})
 
+@app.route("/qrcode")
+def qr_code():
+    currency = request.args["currency"]
+    amount = request.args["amount"]
+    message = request.args.get("message","")
+    if currency =="czk":
+        return jsonify({"message": cz_code(amount, message)})
+    return jsonify({"message": eur_code(amount, message)})
 
 @app.route("/ping")
 def ping():

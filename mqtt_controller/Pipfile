@@ -13,6 +13,8 @@ flask-cors = "*"
 sqlalchemy = "*"
 requests = "*"
 flask-sqlalchemy = "*"
+pay-by-square = "*"
+qrcode = "*"
 
 [requires]
 python_version = "3.7"
