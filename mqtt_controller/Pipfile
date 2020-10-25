@@ -15,6 +15,7 @@ requests = "*"
 flask-sqlalchemy = "*"
 pay-by-square = "*"
 qrcode = "*"
+pandas = "*"
 
 [requires]
 python_version = "3.7"
