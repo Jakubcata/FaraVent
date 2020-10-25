@@ -3,10 +3,9 @@ from datetime import datetime
 from typing import Optional
 
 import pandas as pd
-
-
-from models import Message, Topic, SensorValues
 from sqlalchemy import and_
+
+from models import Message, SensorValues, Topic
 
 
 class StatsResampleFunc(enum.Enum):

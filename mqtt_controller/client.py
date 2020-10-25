@@ -1,6 +1,9 @@
-import paho.mqtt.client as mqtt
 import traceback
-from settings import MQTT_USER, MQTT_PASSWORD
+
+import paho.mqtt.client as mqtt
+
+from settings import MQTT_PASSWORD, MQTT_USER
+
 
 class MQTTClient:
     def __init__(self, host, topics, on_message_callback):

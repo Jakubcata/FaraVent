@@ -16,6 +16,7 @@ flask-sqlalchemy = "*"
 pay-by-square = "*"
 qrcode = "*"
 pandas = "*"
+black = "*"
 
 [requires]
 python_version = "3.7"
